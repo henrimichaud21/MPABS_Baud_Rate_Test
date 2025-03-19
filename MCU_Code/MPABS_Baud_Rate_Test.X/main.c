@@ -3,7 +3,7 @@
 
   Company:
     Microchip Technology Inc.
-
+ 
   File Name:
     main.c
 
@@ -44,6 +44,11 @@
 #include "mcc_generated_files/mcc.h"
 #include <stdint.h>
 #include <string.h>
+#include <xc.h>
+#include <stdlib.h>
+
+#define MAX_12BIT 4095  // 12-bit max value (2^12 - 1)
+#define MAX_VOLTAGE 3.3 // Target voltage range
 
 /*
                          Main application
@@ -117,6 +122,11 @@ void UART2_sendString(const char *str)
     }
 }
 
+float generate_random_value() {
+    return rand() & 0x0FFF;  // Mask to 12-bit range (0-4095)
+//    return (randValue / (float)MAX_12BIT) * MAX_VOLTAGE;
+}
+
 adc_result_t Result1;
 adc_result_t Result2;
 uint8_t LSB8_G;
@@ -139,23 +149,23 @@ void main(void)
     WPUC1 = 0;
     
     while(1){
-        ADCC_StartConversion(0b010001);
+//        ADCC_StartConversion(0b010001);
         __delay_ms(10);
-        if(ADCC_IsConversionDone()){
-            Result1 = ADCC_GetConversionResult();
+//        if(ADCC_IsConversionDone()){
+            Result1 = 0xFFF;
             LSB8_P = Result1 & 0xFF;
             MSB4_P = (Result1 >> 8) & 0x0F;
-            ADCON0bits.ADGO = 1;
-        }
+//            ADCON0bits.ADGO = 1;
+//        }
+//        __delay_ms(10);
+//        ADCC_StartConversion(0b010010);
         __delay_ms(10);
-        ADCC_StartConversion(0b010010);
-        __delay_ms(10);
-        if(ADCC_IsConversionDone()){
-            Result2 = ADCC_GetConversionResult();
+//        if(ADCC_IsConversionDone()){
+            Result2 = 0xFFF;
             LSB8_G = Result2 & 0xFF;
             MSB4_G = (Result2 >> 8) & 0x0F;
-            ADCON0bits.ADGO = 1;
-        }
+//            ADCON0bits.ADGO = 1;
+//        }
         UART2_Write(MSB4_P);
         UART2_Write(LSB8_P);
         UART2_Write(MSB4_G);

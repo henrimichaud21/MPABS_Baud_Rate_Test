@@ -3,6 +3,7 @@
     <type>com.microchip.mplab.nbide.embedded.makeproject</type>
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/make-project/1">
+            <name>MPABS_Baud_Rate_Test</name>
             <name>Team3_MCU_Code_10_03_2025</name>
             <name>Getting_Started_With_UART_SPI</name>
             <name>Getting_Started_With_UART</name>

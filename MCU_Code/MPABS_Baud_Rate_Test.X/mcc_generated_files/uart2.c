@@ -167,7 +167,7 @@ void UART2_Write(uint8_t txData)
     U2TXB = txData;    // Write the data byte to the USART.
 }
 
-int getch(void)
+char getch(void)
 {
     return UART2_Read();
 }
