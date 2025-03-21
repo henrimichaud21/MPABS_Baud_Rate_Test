@@ -4,8 +4,8 @@ from PyQt5.QtCore import *
 # Define port that is being used
 Port_Name = "COM4"
 
-# Define the baudrate that is being used
-Baud_Rate = 9600
+# Define the baud rate that is being used
+Baud_Rate = 115200
 
 class SerialThread(QObject):
     data_received = pyqtSignal(float, float)
